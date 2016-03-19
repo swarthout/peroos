@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
       d = document;
 
       var f = d.createElement('form');
-      f.action = 'http://www.yahoo.com';
+     // var url = tabs[0].url;
+      f.action = 'http://pacific-forest-32636.herokuapp.com';
     //  d.getElementById('uh-search-box').value = "YAHOO";
       f.method = 'post';
       var i = d.createElement('input');
