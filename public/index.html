@@ -1,31 +1,19 @@
 <html>
    <head>
       <title>
-         A Small Hello
+         GrizzHacks
       </title>
    </head>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.min.js"></script>
+   <script type="text/javascript" src="//cdn.rawgit.com/feathersjs/feathers-client/v1.0.0/dist/feathers.js"></script>
+   <script type="text/javascript" src="/js/app.js"> </script>
 <body>
-   <h1>Hi</h1>
-   <p>This is very minimal "hello world" HTML document.</p>
+   <h1>Summarize!</h1>
+      Enter URL: <input type="text" id="query_url">
+      <button onclick="getSummary()"> Submit</button>
+
+  <div id="result">
+  </div>
 </body>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.min.js"></script>
-<script type="text/javascript" src="//cdn.rawgit.com/feathersjs/feathers-client/v1.0.0/dist/feathers.js"></script>
-<script type="text/javascript">
-  const rest = feathers.rest('http://localhost:3000');
-  const app = feathers()
-    .configure(feathers.hooks())
-    .configure(rest.superagent(superagent));
 
-  var summaryService = app.service('summaries');
-
-  summaryService.find(
-    { query: {
-      url: 'test'
-    }})
-    .then(result => {
-    console.log(result);
-  }).catch(error => {
-    console.error(error);
-  });
-</script>
 </html>
