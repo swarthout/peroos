@@ -1,10 +1,10 @@
-const rest = feathers.rest('http://pacific-forest-32636.herokuapp.com/');
+const rest = feathers.rest('http://pacific-forest-32636.herokuapp.com');
 const app = feathers()
   .configure(feathers.hooks())
   .configure(rest.superagent(superagent));
 
 const summaryService = app.service('/summaries/');
-const videosService = app.service('relevant_videos/')
+const videosService = app.service('/relevant_videos/')
 
 function getSummary(){
   var url = document.getElementById('query_url').value;
