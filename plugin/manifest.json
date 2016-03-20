@@ -1,13 +1,14 @@
 {
-    "name"          : "Simple Search",
+    "name"          : "PeRoos",
     "version"       : "0.1",
     "manifest_version"  : 2,
     "description"       : "Simple Search Plugin",
+    "description"       : "Making studying elementary. (With IBM Watson)",
     "browser_action": {
       "default_icon": {
       "19": "image.png"
     },
-    "default_title": "Simple Search",
+    "default_title": "PeRoos",
     "default_popup": "popup.html"
   },
   "permissions": [
