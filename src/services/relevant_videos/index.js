@@ -2,9 +2,9 @@
 
 const hooks = require('./hooks');
 
-extend = require('util')._extend,
-watson = require('watson-developer-cloud'),
-async  = require('async');
+const extend = require('util')._extend;
+const watson = require('watson-developer-cloud');
+const async  = require('async');
 
 // if bluemix credentials exists, then override local
 var credentials = extend({
@@ -26,7 +26,7 @@ class Service {
 
   find(params) {
     var text = params.query.text;
-    return Promise.resolve([]);
+    return Promise.resolve(getAbstractConcepts(text));
   }
 
   get(id, params) {
@@ -56,32 +56,79 @@ class Service {
   }
 }
 
+function getAbstractConcepts(text) {
+    let final_results= [];
+    text = text.length > 0 ? text : ' ';
+      return extractConceptMentions({
+          text: text
+        })
+        .then(function(results) {
+          // console.log("results: ",results);
+          var unique_concept_array = [];
 
-var conceptualSearch = function(req){
-  var params = extend({ corpus: corpus_id, limit: 10 }, req.query);
-  conceptInsights.corpora.getRelatedDocuments(params, function(err, data) {
-    if (err)
-      return err;
-    else {
-      async.parallel(data.results.map(getPassagesAsync), function(err, documentsWithPassages) {
-        if (err)
-          return err;
-        else{
-          data.results = documentsWithPassages;
-          return data;
-        }
-      });
-    }
+          for (var i = 0; i < results.annotations.length; i++) {
+            if (check_duplicate_concept(unique_concept_array, results.annotations[i].concept.id) || unique_concept_array.length == 3)
+              continue;
+            else
+              unique_concept_array.push(results.annotations[i].concept.id);
+          }
+
+          // console.log("unique_concept_array: ", unique_concept_array);
+          if (unique_concept_array.length > 0) {
+
+            return conceptualSearch( {
+                ids: unique_concept_array,
+                limit: 3
+              }).then(function(final){
+                console.log(final);
+                return final;
+              })
+          }
+          return [];
+
+        })
+}
+
+function check_duplicate_concept(unique_concept_array, concept) {
+  for (var i = 0; i < unique_concept_array.length; i++) {
+    if (unique_concept_array[i] == concept)
+      return true;
+  }
+  return false;
+}
+
+
+var conceptualSearch = function(query){
+  // console.log("got into conceptualSearch");
+  return new Promise(function(resolve, reject) {
+    var params = extend({ corpus: corpus_id, limit: 10 }, query);
+    conceptInsights.corpora.getRelatedDocuments(params, function(err, data) {
+      if (err){
+        return reject(err);
+      }
+      // console.log("data.results: ",data.results);
+      resolve( Promise.all(data.results.map(getPassagesAsync)).then((results)=>
+      {
+        // console.log("*******passages async multiple: ", results);
+        let videoData = results.map((result) => result.user_fields);
+        // console.log("*************video data: ", videoData);
+         return (videoData);
+      }))
+
+      }
+    );
   });
 }
 
-var extractConceptMentions = function(req){
-  var params = extend({ graph: graph_id }, req.body);
-  conceptInsights.graphs.annotateText(params, function(err, results) {
-    if (err)
-      return err;
-    else
-      return results;
+
+var extractConceptMentions = function(data){
+  return new Promise(function(resolve, reject) {
+    var params = extend({ graph: graph_id }, data);
+    conceptInsights.graphs.annotateText(params, function(err, results) {
+      if (err)
+        return reject(err);
+      resolve(results);
+    });
   });
 }
 
@@ -91,18 +138,17 @@ var extractConceptMentions = function(req){
  * @return {[type]}     The document with the passages
  */
 var getPassagesAsync = function(doc) {
-  return function (callback) {
+  return new Promise(function(resolve, reject) {
     conceptInsights.corpora.getDocument(doc, function(err, fullDoc) {
-      if (err)
-        callback(err);
-      else {
+      if (err){
+        return reject(err);
+      }
         doc = extend(doc, fullDoc);
         doc.explanation_tags.forEach(crop.bind(this, doc));
         delete doc.parts;
-        callback(null, doc);
-      }
+        resolve(doc);
     });
-  };
+  });
 };
 
 /**
