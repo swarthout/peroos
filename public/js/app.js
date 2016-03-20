@@ -24,8 +24,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
 $( document ).ready(function() {
   var search_url = getUrlParameter('search')
     if(search_url){
-      console.log(search_url);
-      document.getElementById('query_url').value = search_url;
+      var container_node = document.getElementById('query_container');
+      container_node.style.display = 'none';
+      var input_node = document.getElementById('query_url');
+      input_node.value = search_url;
       getSummary();
     }
 });
