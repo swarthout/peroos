@@ -78,3 +78,12 @@ function getAbstractConcepts() {
       previousText = text;
     }
 }
+
+function check_duplicate_concept(unique_concept_array, concept) {
+  for (var i = 0; i < unique_concept_array.length; i++) {
+    if (unique_concept_array[i] == concept)
+      return true;
+  }
+
+  return false;
+}
