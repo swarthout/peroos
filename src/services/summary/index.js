@@ -9,8 +9,9 @@ class Service {
 
   find(params) {
     let req_url = params.query.url;
-    let api_key = "C4DEB168F2";
+    let api_key = "6C4E435683";
     let smmry_url = `http://api.smmry.com?SM_API_KEY=${api_key}&SM_URL=${req_url}`;
+    //let summry_length = 7;
     let summary = "";
     return rp(smmry_url).then((data) => {
       let data_obj = JSON.parse(data);

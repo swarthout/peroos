@@ -112,6 +112,20 @@ var conceptualSearch = function(query){
         // console.log("*******passages async multiple: ", results);
         let videoData = results.map((result) => result.user_fields);
         // console.log("*************video data: ", videoData);
+/*
+        var video1 = videoData[0].url;
+        var video2 = videoData[1].url;
+        var video3 = videoData[2].url;
+        var thumb1 = videoData[0].thumbnail;
+        var thumb2 = videoData[1].thumbnail;
+        var thumb3 = videoData[2].thumbnail;
+        var title1 = videoData[0].title;
+        var title2 = videoData[1].title;
+        var title3 = videoData[2].title;
+        console.log("Video URL 1: ", videoData[0].url);
+  */
+      //console.log("Video URL 1: ", videoData[0].url);
+    //console.log("Video URL 2: ", videoData[1].url);
          return (videoData);
       }))
 
