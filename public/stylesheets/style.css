@@ -1,9 +1,11 @@
-.hidden{
-  display: none;
+.hidden {
+    display: none;
 }
-#loader{
-  text-align: center;
+
+#loader {
+    text-align: center;
 }
-.preloader-wrapper{
-  display: inline-block;
+
+.preloader-wrapper {
+    display: inline-block;
 }
