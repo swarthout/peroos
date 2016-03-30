@@ -8,8 +8,8 @@ const async = require('async');
 
 // if bluemix credentials exists, then override local
 var credentials = extend({
-    username: '35801408-b49f-46b2-aa24-bb6b433275ba',
-    password: 'OuIuizFZHTPD',
+    username: process.env.BLUEMIX_USERNAME || "",
+    password: process.env.BLUEMIX_PW || "",
     version: 'v2'
 }); // VCAP_SERVICES
 

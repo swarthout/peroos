@@ -4,7 +4,7 @@ const app = feathers()
     .configure(rest.superagent(superagent));
 
 const summaryService = app.service('/summaries/');
-const videosService = app.service('/relevant_videos/')
+const videosService = app.service('/relevant_videos/');
 
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -22,7 +22,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 $(document).ready(function () {
-    var search_url = getUrlParameter('search')
+    var search_url = getUrlParameter('search');
     if (search_url) {
         var container_node = document.getElementById('query_container');
         container_node.style.display = 'none';

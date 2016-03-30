@@ -9,7 +9,7 @@ class Service {
 
     find(params) {
         let req_url = params.query.url;
-        let api_key = "6C4E435683";
+        let api_key = process.env.SMMRY_API_KEY || "";
         let smmry_url = `http://api.smmry.com?SM_API_KEY=${api_key}&SM_URL=${req_url}`;
         let summary = "";
         return rp(smmry_url).then((data) => {
