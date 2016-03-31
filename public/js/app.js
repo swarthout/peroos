@@ -1,4 +1,4 @@
-const rest = feathers.rest('http://pacific-forest-32636.herokuapp.com');
+const rest = feathers.rest('http://peroos.herokuapp.com');
 const app = feathers()
     .configure(feathers.hooks())
     .configure(rest.superagent(superagent));
