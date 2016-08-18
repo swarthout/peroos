@@ -55,28 +55,28 @@ function getSummary() {
                         }
                     }
                 ).then(videos => {
-                        for (var i = 0; i < videos.length; i++) {
-                            var video = videos[i];
-                            // console.log(video);
-                            var img_node = document.getElementById('video_' + i);
-                            img_node.src = video.thumbnail;
+                    for (var i = 0; i < videos.length; i++) {
+                        var video = videos[i];
+                        // console.log(video);
+                        var img_node = document.getElementById('video_' + i);
+                        img_node.src = video.thumbnail;
 
-                            var descr_node = document.getElementById('descr_' + i);
-                            descr_node.innerHTML = video.description;
+                        var descr_node = document.getElementById('descr_' + i);
+                        descr_node.innerHTML = video.description;
 
-                            var title_node = document.getElementById('title_' + i);
-                            title_node.innerHTML = video.title;
+                        var title_node = document.getElementById('title_' + i);
+                        title_node.innerHTML = video.title;
 
-                            var link_node = document.getElementById('link_' + i);
-                            link_node.href = video.url;
+                        var link_node = document.getElementById('link_' + i);
+                        link_node.href = video.url;
 
-                            document.getElementById('talk_' + i).style.display = 'block';
-                        }
+                        document.getElementById('talk_' + i).style.display = 'block';
                     }
-                )
+                }
+                    )
             }).catch(error => {
-            console.error(error);
-        });
+                console.error(error);
+            });
     }
     return false;
 }

@@ -17,30 +17,6 @@ class Service {
             return data_obj.sm_api_content;
         })
     }
-
-    get(id, params) {
-        return Promise.resolve({});
-    }
-
-    create(data, params) {
-        if (Array.isArray(data)) {
-            return Promise.all(data.map(current => this.create(current)));
-        }
-
-        return Promise.resolve(data);
-    }
-
-    update(id, data, params) {
-        return Promise.resolve(data);
-    }
-
-    patch(id, data, params) {
-        return Promise.resolve(data);
-    }
-
-    remove(id, params) {
-        return Promise.resolve({id});
-    }
 }
 
 module.exports = function () {
